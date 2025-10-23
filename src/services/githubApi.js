@@ -12,8 +12,8 @@ export const fetchTrendingRepos = async (page = 1) => {
         sort: 'stars',
         order: 'desc',
         per_page: 10,
-        page
-      }
+        page,
+      },
     });
     return response.data;
   } catch (error) {

@@ -31,41 +31,45 @@ function App() {
     loadRepos();
   }, [currentPage]);
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = newPage => {
     setCurrentPage(newPage);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           bgcolor: '#24292e',
           color: 'white',
           py: { xs: 2, sm: 3 },
           mb: 2,
-          boxShadow: 1
+          boxShadow: 1,
         }}
       >
         <Container maxWidth="md">
-          <Box sx={{ 
-            display: 'flex', 
-            alignItems: 'center',
-            justifyContent: { xs: 'center', sm: 'flex-start' },
-            gap: 2,
-            px: { xs: 2, sm: 0 }
-          }}>
-            <GitHubIcon sx={{ 
-              fontSize: { xs: 28, sm: 32 },
-              color: 'white' 
-            }} />
-            <Typography 
-              variant="h6" 
-              component="h1" 
-              sx={{ 
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: { xs: 'center', sm: 'flex-start' },
+              gap: 2,
+              px: { xs: 2, sm: 0 },
+            }}
+          >
+            <GitHubIcon
+              sx={{
+                fontSize: { xs: 28, sm: 32 },
+                color: 'white',
+              }}
+            />
+            <Typography
+              variant="h6"
+              component="h1"
+              sx={{
                 fontWeight: 600,
                 fontSize: { xs: '1.25rem', sm: '1.5rem' },
-                color: 'white'
+                color: 'white',
               }}
             >
               Trending Repos
@@ -76,11 +80,11 @@ function App() {
 
       {error && (
         <Container maxWidth="lg">
-          <Alert 
-            severity="error" 
-            sx={{ 
+          <Alert
+            severity="error"
+            sx={{
               mb: 3,
-              borderRadius: 2
+              borderRadius: 2,
             }}
           >
             {error}
@@ -89,14 +93,10 @@ function App() {
       )}
 
       <RepoList repos={repos} loading={loading} />
-      
+
       {!loading && !error && (
         <Container maxWidth="md">
-          <Pagination
-            currentPage={currentPage}
-            hasMore={hasMore}
-            onPageChange={handlePageChange}
-          />
+          <Pagination currentPage={currentPage} hasMore={hasMore} onPageChange={handlePageChange} />
         </Container>
       )}
     </Box>

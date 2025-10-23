@@ -14,7 +14,7 @@ const RepoList = ({ repos, loading }) => {
   return (
     <Container maxWidth="md">
       <Box sx={{ py: 2 }}>
-        {repos.map((repo) => (
+        {repos.map(repo => (
           <RepoCard key={repo.id} repo={repo} />
         ))}
       </Box>
