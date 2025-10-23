@@ -6,23 +6,27 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const Pagination = ({ currentPage, hasMore, onPageChange }) => {
   return (
-    <Box sx={{ 
-      display: 'flex', 
-      flexDirection: { xs: 'column', sm: 'row' },
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: { xs: 1.5, sm: 2 },
-      my: 4,
-      px: 2,
-      width: '100%'
-    }}>
-      <Box sx={{ 
+    <Box
+      sx={{
         display: 'flex',
+        flexDirection: { xs: 'column', sm: 'row' },
+        alignItems: 'center',
         justifyContent: 'center',
-        gap: 1,
-        order: { xs: 2, sm: 1 },
-        width: { xs: '100%', sm: 'auto' }
-      }}>
+        gap: { xs: 1.5, sm: 2 },
+        my: 4,
+        px: 2,
+        width: '100%',
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 1,
+          order: { xs: 2, sm: 1 },
+          width: { xs: '100%', sm: 'auto' },
+        }}
+      >
         <Button
           variant="outlined"
           disabled={currentPage === 1}
@@ -33,8 +37,8 @@ const Pagination = ({ currentPage, hasMore, onPageChange }) => {
             borderColor: 'grey.300',
             '&:hover': {
               borderColor: 'grey.400',
-              bgcolor: 'grey.50'
-            }
+              bgcolor: 'grey.50',
+            },
           }}
         >
           First
@@ -49,8 +53,8 @@ const Pagination = ({ currentPage, hasMore, onPageChange }) => {
             borderColor: 'grey.300',
             '&:hover': {
               borderColor: 'grey.400',
-              bgcolor: 'grey.50'
-            }
+              bgcolor: 'grey.50',
+            },
           }}
         >
           Previous
@@ -65,18 +69,18 @@ const Pagination = ({ currentPage, hasMore, onPageChange }) => {
             borderColor: 'grey.300',
             '&:hover': {
               borderColor: 'grey.400',
-              bgcolor: 'grey.50'
-            }
+              bgcolor: 'grey.50',
+            },
           }}
         >
           Next
         </Button>
       </Box>
-      <Typography 
-        sx={{ 
+      <Typography
+        sx={{
           color: 'text.secondary',
           fontSize: '0.875rem',
-          order: { xs: 1, sm: 2 }
+          order: { xs: 1, sm: 2 },
         }}
       >
         Page {currentPage}
