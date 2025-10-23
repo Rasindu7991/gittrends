@@ -1,40 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Container, Alert, Box } from '@mui/material';
+import { Typography, Container, Alert, Box, Fab, Zoom } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RepoList from './components/RepoList';
-import Pagination from './components/Pagination';
 import { fetchTrendingRepos } from './services/githubApi';
 import './styles/main.css';
 
 function App() {
   const [repos, setRepos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
+  // Handle scroll event to show/hide back to top button
   useEffect(() => {
-    const loadRepos = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await fetchTrendingRepos(currentPage);
-        setRepos(data.items);
-        setHasMore(data.total_count > currentPage * 10);
-      } catch (err) {
-        setError('Failed to fetch repositories. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      setShowScrollTop(scrollTop > 400);
     };
 
-    loadRepos();
-  }, [currentPage]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const handlePageChange = newPage => {
-    setCurrentPage(newPage);
+  const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const loadRepos = async page => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await fetchTrendingRepos(page);
+
+      if (page === 1) {
+        setRepos(data.items);
+      } else {
+        setRepos(prevRepos => [...prevRepos, ...data.items]);
+      }
+
+      setHasMore(data.total_count > page * 10);
+    } catch (err) {
+      setError('Failed to fetch repositories. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadRepos(1);
+  }, []);
+
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
@@ -92,13 +110,45 @@ function App() {
         </Container>
       )}
 
-      <RepoList repos={repos} loading={loading} />
+      <RepoList
+        repos={repos}
+        loading={loading}
+        hasMore={hasMore}
+        onLoadMore={() => {
+          if (!loading && hasMore) {
+            loadRepos(currentPage + 1);
+            setCurrentPage(prev => prev + 1);
+          }
+        }}
+      />
 
-      {!loading && !error && (
-        <Container maxWidth="md">
-          <Pagination currentPage={currentPage} hasMore={hasMore} onPageChange={handlePageChange} />
-        </Container>
-      )}
+      {/* Back to Top Button */}
+      <Zoom in={showScrollTop}>
+        <Box
+          role="presentation"
+          sx={{
+            position: 'fixed',
+            bottom: 32,
+            right: { xs: 16, sm: 32 },
+            zIndex: 1000,
+          }}
+        >
+          <Fab
+            color="primary"
+            size="medium"
+            aria-label="scroll back to top"
+            onClick={scrollToTop}
+            sx={{
+              bgcolor: '#24292e',
+              '&:hover': {
+                bgcolor: '#2f363d',
+              },
+            }}
+          >
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </Box>
+      </Zoom>
     </Box>
   );
 }
