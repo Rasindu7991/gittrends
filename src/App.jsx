@@ -55,7 +55,7 @@ function App() {
 
 
   return (
-    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
+    <Box sx={{ bgcolor: '#e3f2fd', minHeight: '100vh' }}>
       <Box
         sx={{
           bgcolor: '#24292e',
