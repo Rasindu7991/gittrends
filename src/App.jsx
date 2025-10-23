@@ -53,10 +53,6 @@ function App() {
     loadRepos(1);
   }, []);
 
-  const handlePageChange = newPage => {
-    setCurrentPage(newPage);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>

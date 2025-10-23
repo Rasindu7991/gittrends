@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { Container, CircularProgress, Box } from '@mui/material';
 import RepoCard from './RepoCard';
 
