@@ -8,7 +8,6 @@ A React application that displays trending GitHub repositories from the last 10 
 - Pagination support
 - Responsive design
 - Star count and repository information
-- Easy navigation with First, Previous, and Next buttons
 
 ## Live Demo
 
