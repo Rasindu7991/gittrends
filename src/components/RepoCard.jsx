@@ -9,13 +9,15 @@ const RepoCard = ({ repo }) => {
       sx={{
         p: { xs: 1.5, sm: 2 },
         mb: 1,
+        bgcolor: 'white',
         '&:hover': {
-          bgcolor: 'action.hover',
+          bgcolor: '#f5f5f5',
         },
         display: 'flex',
         alignItems: 'flex-start',
         gap: { xs: 1.5, sm: 2 },
         transition: 'background-color 0.2s ease',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.12)'
       }}
       elevation={0}
     >
